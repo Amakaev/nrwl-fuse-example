@@ -69,7 +69,7 @@
     "unified-signatures": true,
     "variable-name": false,
     "directive-selector": [
-      true,
+      false,
       "attribute",
       "app",
       "camelCase"

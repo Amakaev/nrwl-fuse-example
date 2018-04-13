@@ -4,8 +4,8 @@ import { ObservableMedia } from '@angular/flex-layout';
 import { Subscription } from 'rxjs/Subscription';
 
 import { FuseSidebarService } from './sidebar.service';
-import { FuseMatchMediaService } from '@sense-cm/fuse';
-import { FuseConfigService } from '@sense-cm/fuse';
+import { FuseMatchMediaService } from '../../services/match-media.service';
+import { FuseConfigService } from '../../services/config.service';
 
 @Component({
     selector     : 'fuse-sidebar',

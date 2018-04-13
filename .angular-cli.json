@@ -16,11 +16,11 @@
       "exclude": "**/node_modules/**"
     },
     {
-      "project": "apps/web-client/src/tsconfig.app.json",
+      "project": "apps/web-client-fuse/src/tsconfig.app.json",
       "exclude": "**/node_modules/**"
     },
     {
-      "project": "apps/web-client/e2e/tsconfig.e2e.json",
+      "project": "apps/web-client-fuse/e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
     }
   ],
@@ -31,9 +31,9 @@
   },
   "apps": [
     {
-      "name": "web-client",
-      "root": "apps/web-client/src",
-      "outDir": "dist/apps/web-client",
+      "name": "web-client-fuse",
+      "root": "apps/web-client-fuse/src",
+      "outDir": "dist/apps/web-client-fuse",
       "assets": [
         "assets",
         "favicon.ico"
@@ -73,7 +73,7 @@
     "schematics": {
       "collection": "@nrwl/schematics"
     },
-    "styleExt": "css",
+    "styleExt": "s",
     "component": {}
   },
   "warnings": {
