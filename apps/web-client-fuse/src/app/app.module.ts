@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {NxModule} from '@nrwl/nx';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    NxModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
