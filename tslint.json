@@ -40,7 +40,7 @@
       "trace"
     ],
     "no-construct": true,
-    "no-debugger": true,
+    "no-debugger": false,
     "no-duplicate-super": true,
     "no-empty": false,
     "no-empty-interface": true,
@@ -60,7 +60,7 @@
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
-    "prefer-const": true,
+    "prefer-const": false,
     "radix": true,
     "triple-equals": [
       true,

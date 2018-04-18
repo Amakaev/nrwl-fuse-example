@@ -1,11 +1,15 @@
-import {Component, Input, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, Input, OnDestroy, ViewChild, ViewEncapsulation, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
-import {FusePerfectScrollbarDirective} from '@sense-cm/fuse';
-import {FuseSidebarService} from '@sense-cm/fuse';
+import { FusePerfectScrollbarDirective } from '@sense-cm/fuse';
+import { FuseSidebarService } from '@sense-cm/fuse';
 
-import {navigation} from '../../navigation/navigation';
-import {FuseNavigationService} from '@sense-cm/fuse';
+import { FuseNavigationService } from '@sense-cm/fuse';
+import { LayoutState } from "../+state/layout.reducer";
+import { select, Store } from "@ngrx/store";
+import { CloseSidenav, OpenSidenav, FoldSidenav, UnfoldSidenav } from "../+state/layout.actions";
+import * as layoutSelectors from "../+state/layout.selectors";
+import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'fuse-navbar',
@@ -13,7 +17,8 @@ import {FuseNavigationService} from '@sense-cm/fuse';
   styleUrls: ['./navbar.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FuseNavbarComponent implements OnDestroy {
+export class FuseNavbarComponent implements OnDestroy, OnInit {
+
   private fusePerfectScrollbar: FusePerfectScrollbarDirective;
 
   @ViewChild(FusePerfectScrollbarDirective)
@@ -33,16 +38,16 @@ export class FuseNavbarComponent implements OnDestroy {
   }
 
   @Input() layout;
-  navigation: any;
+  @Input() navId;
+  @Input() navigation: any;
+  @Output() sideBarToggleOpened = new EventEmitter()
+  @Output() sideBarToggleFolded = new EventEmitter()
+
   navigationServiceWatcher: Subscription;
   fusePerfectScrollbarUpdateTimeout;
 
   constructor(private sidebarService: FuseSidebarService,
-              private navigationService: FuseNavigationService) {
-    // Navigation data
-    this.navigation = navigation;
-
-    // Default layout
+    private navigationService: FuseNavigationService) {
     this.layout = 'vertical';
   }
 
@@ -55,12 +60,15 @@ export class FuseNavbarComponent implements OnDestroy {
       this.navigationServiceWatcher.unsubscribe();
     }
   }
+  ngOnInit(): void {
+    //subscribe to nav state change
 
-  toggleSidebarOpened(key) {
-    this.sidebarService.getSidebar(key).toggleOpen();
+  }
+  toggleSidebarOpened() {
+    this.sideBarToggleOpened.emit(this.navId);
   }
 
   toggleSidebarFolded(key) {
-    this.sidebarService.getSidebar(key).toggleFold();
+    this.sideBarToggleFolded.emit(this.navId);
   }
 }

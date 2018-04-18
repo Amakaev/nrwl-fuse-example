@@ -13,6 +13,10 @@ import {FuseContentModule} from './content/content.module';
 import {FuseToolbarModule} from './toolbar/toolbar.module';
 import {FuseQuickPanelModule} from './quick-panel/quick-panel.module';
 import {FuseNavbarModule} from './navbar/navbar.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { layoutReducer, initialState as layoutInitialState } from './+state/layout.reducer';
+import { LayoutEffects } from './+state/layout.effects';
 
 
 @NgModule({
@@ -35,10 +39,13 @@ import {FuseNavbarModule} from './navbar/navbar.module';
         FuseNavbarModule,
         FuseQuickPanelModule,
         FuseToolbarModule,
+        StoreModule.forFeature('layout', layoutReducer, { initialState: layoutInitialState }),
+        EffectsModule.forFeature([LayoutEffects]),
     ],
     exports     : [
         FuseMainComponent
-    ]
+    ],
+    providers: [LayoutEffects]
 })
 export class FuseMainModule
 {
