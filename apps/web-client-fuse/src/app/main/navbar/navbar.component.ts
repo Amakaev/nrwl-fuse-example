@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, ViewChild, ViewEncapsulation, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, ViewChild, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { FusePerfectScrollbarDirective } from '@sense-cm/fuse';
@@ -9,7 +9,6 @@ import { LayoutState } from "../+state/layout.reducer";
 import { select, Store } from "@ngrx/store";
 import { CloseSidenav, OpenSidenav, FoldSidenav, UnfoldSidenav } from "../+state/layout.actions";
 import * as layoutSelectors from "../+state/layout.selectors";
-import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'fuse-navbar',
@@ -40,8 +39,8 @@ export class FuseNavbarComponent implements OnDestroy, OnInit {
   @Input() layout;
   @Input() navId;
   @Input() navigation: any;
-  @Output() sideBarToggleOpened = new EventEmitter()
-  @Output() sideBarToggleFolded = new EventEmitter()
+  @Output() sideBarToggleOpened = new EventEmitter<string>()
+  @Output() sideBarToggleFolded = new EventEmitter<string>()
 
   navigationServiceWatcher: Subscription;
   fusePerfectScrollbarUpdateTimeout;
@@ -68,7 +67,7 @@ export class FuseNavbarComponent implements OnDestroy, OnInit {
     this.sideBarToggleOpened.emit(this.navId);
   }
 
-  toggleSidebarFolded(key) {
+  toggleSidebarFolded() {
     this.sideBarToggleFolded.emit(this.navId);
   }
 }

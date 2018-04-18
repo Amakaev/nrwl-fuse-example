@@ -22,6 +22,7 @@ import { CloseSidenav, OpenSidenav, UnfoldSidenav, FoldSidenav } from './+state/
 export class FuseMainComponent implements OnDestroy, OnInit {
 
     fuseSettings: any;
+    navigation$: any;
     private fuseSettings$: Observable<IFuseConfig>;
     @HostBinding('attr.fuse-layout-mode') layoutMode;
 
@@ -35,6 +36,8 @@ export class FuseMainComponent implements OnDestroy, OnInit {
         @Inject(DOCUMENT) private document: any
     ) {
         this.fuseSettings$ = appState.select(appSelectors.selectFuseSettings);
+        this.navigation$ = layoutState.select(layoutSelectors.getNavigation);
+        
         if (this.platform.ANDROID || this.platform.IOS) {
             this.document.body.className += ' is-mobile';
         }
@@ -60,7 +63,7 @@ export class FuseMainComponent implements OnDestroy, OnInit {
         }
     }
 
-    toggleSidebarFolded(key) {
+    onToggleSidebarFolded(key) {
         if (this.sidebarService.getSidebar(key).folded) {
             this.layoutState.dispatch(new UnfoldSidenav(key))
         } else {
