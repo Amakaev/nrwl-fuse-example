@@ -4,67 +4,53 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { FuseConfigService } from '@sense-cm/fuse';
 import { FuseSidebarService } from '@sense-cm/fuse';
+import * as fromAppSelectors from '../../+state/app.selectors'
+import { AppState } from '../../+state/app.reducer';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { AppConfig } from '../../app-config';
+
 
 @Component({
-    selector   : 'fuse-toolbar',
+    selector: 'fuse-toolbar',
     templateUrl: './toolbar.component.html',
-    styleUrls  : ['./toolbar.component.scss']
+    styleUrls: ['./toolbar.component.scss']
 })
 
-export class FuseToolbarComponent
-{
-    userStatusOptions: any[];
+export class FuseToolbarComponent {
+    appSettings$: Observable<AppConfig>;
     languages: any;
     selectedLanguage: any;
     showLoadingBar: boolean;
     horizontalNav: boolean;
     noNav: boolean;
 
+
     constructor(
         private router: Router,
         private fuseConfig: FuseConfigService,
         private sidebarService: FuseSidebarService,
-        private translate: TranslateService
-    )
-    {
-        this.userStatusOptions = [
-            {
-                'title': 'Online',
-                'icon' : 'icon-checkbox-marked-circle',
-                'color': '#4CAF50'
-            },
-            {
-                'title': 'Away',
-                'icon' : 'icon-clock',
-                'color': '#FFC107'
-            },
-            {
-                'title': 'Do not Disturb',
-                'icon' : 'icon-minus-circle',
-                'color': '#F44336'
-            },
-            {
-                'title': 'Invisible',
-                'icon' : 'icon-checkbox-blank-circle-outline',
-                'color': '#BDBDBD'
-            },
-            {
-                'title': 'Offline',
-                'icon' : 'icon-checkbox-blank-circle-outline',
-                'color': '#616161'
-            }
-        ];
+        private translate: TranslateService,
+        private appState: Store<AppState>
+    ) {
+
+        this.appSettings$ = appState.select(fromAppSelectors.selectFuseSettings);
+        this.appSettings$.subscribe((settings) => {
+            this.horizontalNav = settings.layout.navigationPosition === 'top';
+            this.noNav = settings.layout.navigationPosition === 'none';
+        });
+
 
         this.languages = [
             {
-                'id'   : 'en',
+                'id': 'en',
                 'title': 'English',
-                'flag' : 'us'
+                'flag': 'us'
             },
             {
-                'id'   : 'tr',
+                'id': 'tr',
                 'title': 'Turkish',
-                'flag' : 'tr'
+                'flag': 'tr'
             }
         ];
 
@@ -72,36 +58,28 @@ export class FuseToolbarComponent
 
         router.events.subscribe(
             (event) => {
-                if ( event instanceof NavigationStart )
-                {
+                if (event instanceof NavigationStart) {
                     this.showLoadingBar = true;
                 }
-                if ( event instanceof NavigationEnd )
-                {
+                if (event instanceof NavigationEnd) {
                     this.showLoadingBar = false;
                 }
             });
 
-        this.fuseConfig.onConfigChanged.subscribe((settings) => {
-            this.horizontalNav = settings.layout.navigation === 'top';
-            this.noNav = settings.layout.navigation === 'none';
-        });
+
 
     }
 
-    toggleSidebarOpened(key)
-    {
+    toggleSidebarOpened(key) {
         this.sidebarService.getSidebar(key).toggleOpen();
     }
 
-    search(value)
-    {
+    search(value) {
         // Do your search here...
         console.log(value);
     }
 
-    setLanguage(lang)
-    {
+    setLanguage(lang) {
         // Set the selected language for toolbar
         this.selectedLanguage = lang;
 

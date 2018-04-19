@@ -4,25 +4,25 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { DataPersistence } from '@nrwl/nx';
 import { hot } from '@nrwl/nx/testing';
 
-import { LayoutEffects } from './layout.effects';
+import { AppEffects } from './app.effects';
 
 import { Observable } from 'rxjs/Observable';
 
 describe('LayoutEffects', () => {
   let actions$: Observable<any>;
-  let effects$: LayoutEffects;
+  let effects$: AppEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot({})],
       providers: [
-        LayoutEffects,
+        AppEffects,
         DataPersistence,
         provideMockActions(() => actions$)
       ]
     });
 
-    effects$ = TestBed.get(LayoutEffects);
+    effects$ = TestBed.get(AppEffects);
   });
 
   describe('someEffect', () => {

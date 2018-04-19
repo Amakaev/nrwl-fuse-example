@@ -6,13 +6,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { FuseConfigService, FuseSidebarService } from '@sense-cm/fuse';
 import { Store } from '@ngrx/store';
 import { AppState } from '../+state/app.reducer';
-import * as appSelectors from '../+state/app.selectors'
-import * as layoutSelectors from './+state/layout.selectors'
+import * as fromAppSelectors from '../+state/app.selectors'
 import { Observable } from 'rxjs/Observable';
-import { IFuseConfig } from '../fuse-config';
-import { ChangeSettigns } from '../+state/app.actions';
-import { LayoutState } from './+state/layout.reducer';
-import { CloseSidenav, OpenSidenav, UnfoldSidenav, FoldSidenav } from './+state/layout.actions';
+import { AppConfig } from '../app-config';
+import { ChangeSettigns, CloseSidenav, OpenSidenav, UnfoldSidenav, FoldSidenav } from '../+state/app.actions';
 @Component({
     selector: 'fuse-main',
     templateUrl: './main.component.html',
@@ -21,9 +18,10 @@ import { CloseSidenav, OpenSidenav, UnfoldSidenav, FoldSidenav } from './+state/
 })
 export class FuseMainComponent implements OnDestroy, OnInit {
 
-    fuseSettings: any;
+    fuseSettings: Observable<AppConfig>;
     navigation$: any;
-    private fuseSettings$: Observable<IFuseConfig>;
+    private appSettings$: Observable<AppConfig>;
+    navBarName = 'navbar';
     @HostBinding('attr.fuse-layout-mode') layoutMode;
 
     constructor(
@@ -31,13 +29,12 @@ export class FuseMainComponent implements OnDestroy, OnInit {
         private _elementRef: ElementRef,
         private platform: Platform,
         private appState: Store<AppState>,
-        private layoutState: Store<LayoutState>,
         private sidebarService: FuseSidebarService,
         @Inject(DOCUMENT) private document: any
     ) {
-        this.fuseSettings$ = appState.select(appSelectors.selectFuseSettings);
-        this.navigation$ = layoutState.select(layoutSelectors.getNavigation);
-        
+        this.appSettings$ = appState.select(fromAppSelectors.selectFuseSettings);
+        this.navigation$ = appState.select(fromAppSelectors.selectNavigation);
+
         if (this.platform.ANDROID || this.platform.IOS) {
             this.document.body.className += ' is-mobile';
         }
@@ -57,17 +54,24 @@ export class FuseMainComponent implements OnDestroy, OnInit {
     }
     toggleSidebarOpened(key) {
         if (this.sidebarService.getSidebar(key).opened) {
-            this.layoutState.dispatch(new CloseSidenav(key))
+            this.appState.dispatch(new CloseSidenav())
         } else {
-            this.layoutState.dispatch(new OpenSidenav(key))
+            this.appState.dispatch(new OpenSidenav())
         }
     }
 
     onToggleSidebarFolded(key) {
-        if (this.sidebarService.getSidebar(key).folded) {
-            this.layoutState.dispatch(new UnfoldSidenav(key))
+        const sidebar = this.sidebarService.getSidebar(key);
+        if (sidebar.folded) {
+            this.unfoldNavBar(sidebar);
         } else {
-            this.layoutState.dispatch(new FoldSidenav(key))
+            this.foldNavBar(sidebar);
         }
+    }
+    foldNavBar(navbar) {
+        this.appState.dispatch(new FoldSidenav())
+    }
+    unfoldNavBar(navbar) {
+        this.appState.dispatch(new UnfoldSidenav())
     }
 }

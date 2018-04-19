@@ -1,3 +1,5 @@
+import { navigation } from "./navigation/navigation";
+
 /**
  * Default Fuse Configuration
  *
@@ -5,20 +7,22 @@
  * basis. See `./login.component.ts` constructor method to learn more
  * about changing these options per component basis.
  */
-export interface IFuseConfig {
-    layout: { navigation, toolbar, navigationFolded, navigationOpened, footer, mode },
+export interface AppConfig {
+    layout: { navigationPosition, toolbar, navigationFolded, navigationOpened, footer, mode, navigation, quickPanel? },
     colorClasses: { toolbar, navbar, footer },
     customScrollbars: boolean,
     routerAnimation: string
 }
-export const fuseConfig: IFuseConfig = {
+export const fuseConfig: AppConfig = {
     layout: {
-        navigation: 'left', // 'right', 'left', 'top', 'none'
+        navigation: navigation,
+        navigationPosition: 'left', // 'right', 'left', 'top', 'none'
         navigationFolded: false, // true, false
         navigationOpened: true,
         toolbar: 'below', // 'above', 'below', 'none'
         footer: 'none', // 'above', 'below', 'none'
-        mode: 'fullwidth' // 'boxed', 'fullwidth'
+        mode: 'fullwidth', // 'boxed', 'fullwidth'
+        quickPanel: false
     },
     colorClasses: {
         toolbar: 'mat-white-500-bg',

@@ -8,22 +8,20 @@ import { FuseNavigationModule, FuseSearchBarModule, FuseSidebarModule } from '@s
 
 
 import { FuseMainComponent } from './main.component';
-import {FuseFooterModule} from './footer/footer.module';
-import {FuseContentModule} from './content/content.module';
-import {FuseToolbarModule} from './toolbar/toolbar.module';
-import {FuseQuickPanelModule} from './quick-panel/quick-panel.module';
-import {FuseNavbarModule} from './navbar/navbar.module';
+import { FuseFooterModule } from './footer/footer.module';
+import { FuseContentModule } from './content/content.module';
+import { FuseToolbarModule } from './toolbar/toolbar.module';
+import { FuseQuickPanelModule } from './quick-panel/quick-panel.module';
+import { FuseNavbarModule } from './navbar/navbar.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { layoutReducer, initialState as layoutInitialState } from './+state/layout.reducer';
-import { LayoutEffects } from './+state/layout.effects';
 
 
 @NgModule({
     declarations: [
         FuseMainComponent,
     ],
-    imports     : [
+    imports: [
         RouterModule,
 
         MatSidenavModule,
@@ -39,14 +37,11 @@ import { LayoutEffects } from './+state/layout.effects';
         FuseNavbarModule,
         FuseQuickPanelModule,
         FuseToolbarModule,
-        StoreModule.forFeature('layout', layoutReducer, { initialState: layoutInitialState }),
-        EffectsModule.forFeature([LayoutEffects]),
     ],
-    exports     : [
+    exports: [
         FuseMainComponent
     ],
-    providers: [LayoutEffects]
+    providers: []
 })
-export class FuseMainModule
-{
+export class FuseMainModule {
 }

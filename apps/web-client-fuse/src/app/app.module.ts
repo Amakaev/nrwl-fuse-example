@@ -7,7 +7,7 @@ import { Params, RouterModule, RouterStateSnapshot, Routes } from '@angular/rout
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 import { FuseSharedModule, FuseModule } from '@sense-cm/fuse';
-import { fuseConfig } from './fuse-config';
+import { fuseConfig } from './app-config';
 import { AppComponent } from './app.component';
 import { FuseMainModule } from './main/main.module';
 import { FuseSampleModule } from './main/content/sample/sample.module';

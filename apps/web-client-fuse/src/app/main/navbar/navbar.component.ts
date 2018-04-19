@@ -5,10 +5,7 @@ import { FusePerfectScrollbarDirective } from '@sense-cm/fuse';
 import { FuseSidebarService } from '@sense-cm/fuse';
 
 import { FuseNavigationService } from '@sense-cm/fuse';
-import { LayoutState } from "../+state/layout.reducer";
 import { select, Store } from "@ngrx/store";
-import { CloseSidenav, OpenSidenav, FoldSidenav, UnfoldSidenav } from "../+state/layout.actions";
-import * as layoutSelectors from "../+state/layout.selectors";
 
 @Component({
   selector: 'fuse-navbar',
