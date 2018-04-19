@@ -50,6 +50,11 @@ export function appReducer(state = initialState, action: AppActions): AppData {
       newState.settings.layout.navigationFolded = false;
       return newState;
     }
+    case AppActionTypes.ChangeLanguage: {
+      let newState: AppData = _.merge({}, state);
+      newState.settings.selectedLanguage = action.lang;
+      return newState;
+    }
     default:
       return state;
   }

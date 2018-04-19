@@ -16,7 +16,7 @@ import { ChangeSettigns, CloseSidenav, OpenSidenav, UnfoldSidenav, FoldSidenav }
     styleUrls: ['./main.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class FuseMainComponent implements OnDestroy, OnInit {
+export class FuseMainComponent {
 
     fuseSettings: Observable<AppConfig>;
     navigation$: any;
@@ -39,12 +39,6 @@ export class FuseMainComponent implements OnDestroy, OnInit {
             this.document.body.className += ' is-mobile';
         }
     }
-
-    ngOnDestroy() {
-    }
-    ngOnInit(): void {
-    }
-
     addClass(className: string) {
         this._renderer.addClass(this._elementRef.nativeElement, className);
     }
@@ -63,15 +57,9 @@ export class FuseMainComponent implements OnDestroy, OnInit {
     onToggleSidebarFolded(key) {
         const sidebar = this.sidebarService.getSidebar(key);
         if (sidebar.folded) {
-            this.unfoldNavBar(sidebar);
+            this.appState.dispatch(new UnfoldSidenav())
         } else {
-            this.foldNavBar(sidebar);
+            this.appState.dispatch(new FoldSidenav())
         }
-    }
-    foldNavBar(navbar) {
-        this.appState.dispatch(new FoldSidenav())
-    }
-    unfoldNavBar(navbar) {
-        this.appState.dispatch(new UnfoldSidenav())
     }
 }

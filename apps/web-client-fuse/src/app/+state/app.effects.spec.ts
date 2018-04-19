@@ -7,17 +7,19 @@ import { hot } from '@nrwl/nx/testing';
 import { AppEffects } from './app.effects';
 
 import { Observable } from 'rxjs/Observable';
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
-describe('LayoutEffects', () => {
+describe('AppEffects', () => {
   let actions$: Observable<any>;
   let effects$: AppEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({})],
+      imports: [StoreModule.forRoot({}),TranslateModule.forRoot(),],
       providers: [
         AppEffects,
         DataPersistence,
+        TranslateService,
         provideMockActions(() => actions$)
       ]
     });

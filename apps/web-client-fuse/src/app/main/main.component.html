@@ -17,7 +17,7 @@
         <div id="wrapper">
 
             <!-- NAVBAR: Left -->
-            <fuse-sidebar [name]="navBarName" [folded]="(appSettings$ | async).layout.navigationFolded" [lockedOpen]="'gt-md'" class="left-navbar" [ngClass]="(appSettings$ | async).colorClasses.navbar" *ngIf="(appSettings$ | async).layout.navigationPosition === 'left' || (appSettings$ | async).layout.navigationPosition === 'top'">
+            <fuse-sidebar [name]="navBarName" [opened]="(appSettings$ | async).layout.navigationOpened" [folded]="(appSettings$ | async).layout.navigationFolded" [lockedOpen]="'gt-md'" class="left-navbar" [ngClass]="(appSettings$ | async).colorClasses.navbar" *ngIf="(appSettings$ | async).layout.navigationPosition === 'left' || (appSettings$ | async).layout.navigationPosition === 'top'">
                 <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)" (sideBarToggleFolded)="onToggleSidebarFolded($event)" [navId]="navBarName" layout="vertical">
                 </fuse-navbar>
             </fuse-sidebar>
@@ -42,7 +42,8 @@
             </div>
 
             <!-- NAVBAR: Right -->
-            <fuse-sidebar [name]="navBarName" [align]="'right'" [folded]="(appSettings$ | async).layout.navigationFolded" [lockedOpen]="'gt-md'" class="right-navbar" [ngClass]="(appSettings$ | async).colorClasses.navbar" *ngIf="(appSettings$ | async).layout.navigationPosition === 'right'">
+            <fuse-sidebar [opened]="(appSettings$ | async).layout.navigationOpened" [name]="navBarName" [align]="'right'" [folded]="(appSettings$ | async).layout.navigationFolded" [lockedOpen]="'gt-md'" class="right-navbar" [ngClass]="(appSettings$ | async).colorClasses.navbar"
+                *ngIf="(appSettings$ | async).layout.navigationPosition === 'right'">
                 <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)" (sideBarToggleFolded)="onToggleSidebarFolded($event)" [navId]="navBarName" layout="vertical">
                 </fuse-navbar>
             </fuse-sidebar>

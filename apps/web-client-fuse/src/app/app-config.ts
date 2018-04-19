@@ -1,4 +1,5 @@
 import { navigation } from "./navigation/navigation";
+import { languages } from "prismjs";
 
 /**
  * Default Fuse Configuration
@@ -8,10 +9,12 @@ import { navigation } from "./navigation/navigation";
  * about changing these options per component basis.
  */
 export interface AppConfig {
-    layout: { navigationPosition, toolbar, navigationFolded, navigationOpened, footer, mode, navigation, quickPanel? },
+    layout: { navigationPosition, toolbar, navigationFolded, navigationOpened, footer, mode, navigation, quickPanel?},
     colorClasses: { toolbar, navbar, footer },
     customScrollbars: boolean,
-    routerAnimation: string
+    routerAnimation: string,
+    languages: any,
+    selectedLanguage: any
 }
 export const fuseConfig: AppConfig = {
     layout: {
@@ -29,6 +32,19 @@ export const fuseConfig: AppConfig = {
         navbar: 'mat-fuse-dark-700-bg',
         footer: 'mat-fuse-dark-900-bg'
     },
+    languages: [
+        {
+            'id': 'en',
+            'title': 'English',
+            'flag': 'us'
+        },
+        {
+            'id': 'he',
+            'title': 'Hebrew',
+            'flag': 'he'
+        }
+    ],
+    selectedLanguage: 'en',
     customScrollbars: true,
     routerAnimation: 'fadeIn' // fadeIn, slideUp, slideDown, slideRight, slideLeft, none
 };

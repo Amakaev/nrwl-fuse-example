@@ -6,8 +6,7 @@
 
     <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
 
-      <button mat-button class="toggle-button-navbar mat-icon-button"
-              *ngIf="!noNav"
+      <button mat-button class="toggle-button-navbar mat-icon-button" *ngIf="!noNav"
               (click)="toggleSidebarOpened('navbar')" fxHide.gt-md>
         <mat-icon>menu</mat-icon>
       </button>
@@ -24,8 +23,7 @@
 
     <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
 
-      <button mat-button [matMenuTriggerFor]="userMenu"
-              class="user-button">
+      <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
         <div fxLayout="row" fxLayoutAlign="center center">
           <img class="avatar" src="assets/images/avatars/profile.jpg">
           <span class="username mr-12" fxHide fxShow.gt-sm>John Doe</span>
@@ -58,35 +56,33 @@
 
       <div class="toolbar-separator"></div>
 
-      <button mat-button fxHide fxShow.gt-xs
-              class="language-button"
-              [matMenuTriggerFor]="languageMenu">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <img class="flag mr-8" [src]="'assets/images/flags/'+selectedLanguage.flag+'.png'">
-          <span class="iso text-uppercase">{{selectedLanguage.id}}</span>
-        </div>
-      </button>
-
-      <mat-menu #languageMenu="matMenu" [overlapTrigger]="false">
-
-        <button mat-menu-item *ngFor="let lang of languages" (click)="setLanguage(lang)">
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <img class="flag mr-16" [src]="'assets/images/flags/'+lang.flag+'.png'">
-            <span class="iso">{{lang.title}}</span>
+      <ng-container *ngIf="selectedLanguage$ | async as selectedLang">
+        <button mat-button fxHide fxShow.gt-xs class="language-button" [matMenuTriggerFor]="languageMenu">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <img class="flag mr-8" [src]="'assets/images/flags/'+selectedLang.flag+'.png'">
+            <span class="iso text-uppercase">{{selectedLang.id}}</span>
           </div>
         </button>
 
-      </mat-menu>
+        <mat-menu #languageMenu="matMenu" [overlapTrigger]="false">
 
-      <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
+          <button mat-menu-item *ngFor="let lang of languages$ | async" (click)="setLanguage(lang)">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <img class="flag mr-16" [src]="'assets/images/flags/'+lang.flag+'.png'">
+              <span class="iso">{{lang.title}}</span>
+            </div>
+          </button>
 
-      <button mat-icon-button
-              class="mat-icon-button quick-panel-toggle-button"
-              fuseMatSidenavToggler="quick-panel"
-              aria-label="Toggle quick panel">
-        <mat-icon class="icon">format_list_bulleted</mat-icon>
-      </button>
+        </mat-menu>
+      </ng-container>
+      <ng-container *ngIf="(appSettings$ | async).layout.quickPanel">
+        <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
 
+        <button mat-icon-button class="mat-icon-button quick-panel-toggle-button" fuseMatSidenavToggler="quick-panel"
+                aria-label="Toggle quick panel">
+          <mat-icon class="icon">format_list_bulleted</mat-icon>
+        </button>
+      </ng-container>
     </div>
   </div>
 </mat-toolbar>

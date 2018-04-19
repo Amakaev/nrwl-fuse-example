@@ -10,7 +10,7 @@ export const navigation = [
                 'title': 'People',
                 'translate': 'NAV.PEOPLE.TITLE',
                 'type': 'item',
-                'icon': 'people',
+                'icon': 'person',
                 'url': '/people',
                 /*                 'badge': {
                                     'title': 25,

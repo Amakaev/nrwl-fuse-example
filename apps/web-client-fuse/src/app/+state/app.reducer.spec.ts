@@ -1,5 +1,5 @@
 import { appReducer, initialState } from './app.reducer';
-import { ChangeSettigns, AppActionTypes, CloseSidenav, OpenSidenav, FoldSidenav, UnfoldSidenav } from './app.actions';
+import { ChangeSettigns, AppActionTypes, CloseSidenav, OpenSidenav, FoldSidenav, UnfoldSidenav, ChangeLanguage } from './app.actions';
 
 const init = {
   settings: {
@@ -18,7 +18,20 @@ const init = {
       footer: 'mat-fuse-dark-900-bg'
     },
     customScrollbars: true,
-    routerAnimation: 'fadeIn' // fadeIn, slideUp, slideDown, slideRight, slideLeft, none
+    routerAnimation: 'fadeIn', // fadeIn, slideUp, slideDown, slideRight, slideLeft, none
+    languages: [
+      {
+        'id': 'en',
+        'title': 'English',
+        'flag': 'us'
+      },
+      {
+        'id': 'he',
+        'title': 'Hebrew',
+        'flag': 'he'
+      }
+    ],
+    selectedLanguage: 'en',
   }
 };
 describe('appReducer', () => {
@@ -55,5 +68,12 @@ describe(`When ${AppActionTypes.UnfoldSidenav}`, () => {
     const action: UnfoldSidenav = new UnfoldSidenav();
     const actual = appReducer(init, action);
     expect(actual.settings.layout.navigationFolded).toEqual(false);
+  });
+});
+describe(`When ${AppActionTypes.ChangeLanguage}`, () => {
+  it(`Language should be changed`, () => {
+    const action: ChangeLanguage = new ChangeLanguage('he');
+    const actual = appReducer(init, action);
+    expect(actual.settings.selectedLanguage).toEqual('he');
   });
 });
