@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { FuseHighlightComponent } from '@sense-cm/fuse/src/components/highlight/highlight.component';
+import { FuseHighlightComponent } from '@fuse/components/highlight/highlight.component';
 
 @NgModule({
     declarations: [

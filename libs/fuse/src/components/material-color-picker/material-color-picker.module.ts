@@ -4,9 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MatButtonModule, MatIconModule, MatMenuModule, MatRippleModule } from '@angular/material';
 
-import { FusePipesModule } from '@sense-cm/fuse/src/pipes/pipes.module';
+import { FusePipesModule } from '@fuse/pipes/pipes.module';
 
-import { FuseMaterialColorPickerComponent } from '@sense-cm/fuse/src/components/material-color-picker/material-color-picker.component';
+import { FuseMaterialColorPickerComponent } from '@fuse/components/material-color-picker/material-color-picker.component';
 
 @NgModule({
     declarations: [

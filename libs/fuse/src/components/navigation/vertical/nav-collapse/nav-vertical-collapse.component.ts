@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FuseNavigationService } from '../../navigation.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { fuseAnimations } from '../../../../animations';
+import { fuseAnimations } from '../../../../animations/index';
 
 @Component({
     selector   : 'fuse-nav-vertical-collapse',

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import {FuseConfigService} from "../../services/config.service";
 
+import { FuseConfigService } from '@fuse/services/config.service';
 
 @Component({
     selector   : 'fuse-search-bar',

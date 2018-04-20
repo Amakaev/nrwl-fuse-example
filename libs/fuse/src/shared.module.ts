@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { FuseDirectivesModule } from '@sense-cm/fuse/src/directives/directives';
-import { FusePipesModule } from '@sense-cm/fuse/src/pipes/pipes.module';
+import { FuseDirectivesModule } from '@fuse/directives/directives';
+import { FusePipesModule } from '@fuse/pipes/pipes.module';
 
 @NgModule({
     imports  : [

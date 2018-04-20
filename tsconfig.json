@@ -18,6 +18,9 @@
     "paths": {
       "@sense-cm/*": [
         "libs/*"
+      ],
+      "@fuse/*":[
+        "libs/fuse/src/*"
       ]
     }
   },

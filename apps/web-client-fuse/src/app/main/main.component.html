@@ -1,68 +1,81 @@
 <mat-sidenav-container>
 
-    <div id="fuse-main-content">
+  <div id="fuse-main-content">
 
-        <!-- TOOLBAR: Above -->
-        <ng-container *ngIf="(appSettings$ | async).layout.toolbar === 'above'">
-            <fuse-toolbar class="above" [ngClass]="(appSettings$ | async).colorClasses.toolbar"></fuse-toolbar>
-        </ng-container>
-        <!-- / TOOLBAR: Above -->
+    <!-- TOOLBAR: Above -->
+    <ng-container *ngIf="(appSettings$ | async).layout.toolbar === 'above'">
+      <fuse-toolbar class="above" [ngClass]="(appSettings$ | async).colorClasses.toolbar"></fuse-toolbar>
+    </ng-container>
+    <!-- / TOOLBAR: Above -->
 
-        <!-- NAVBAR: Top -->
-        <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)" (sideBarToggleFolded)="onToggleSidebarFolded($event)" layout="horizontal" class="top-navbar" fxHide fxShow.gt-md [ngClass]="(appSettings$ | async).colorClasses.navbar"
-            *ngIf="(appSettings$ | async).layout.navigationPosition === 'top'">
+    <!-- NAVBAR: Top -->
+    <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)"
+                 (sideBarToggleFolded)="onToggleSidebarFolded($event)" layout="horizontal" class="top-navbar" fxHide
+                 fxShow.gt-md [ngClass]="(appSettings$ | async).colorClasses.navbar"
+                 *ngIf="(appSettings$ | async).layout.navigationPosition === 'top'">
+    </fuse-navbar>
+    <!-- / NAVBAR: Top -->
+
+    <div id="wrapper">
+
+      <!-- NAVBAR: Left -->
+      <app-sidebar [name]="navBarName" [opened]="(appSettings$ | async).layout.navigationOpened"
+                   [folded]="(appSettings$ | async).layout.navigationFolded"
+                   *ngIf="(appSettings$ | async).layout.navigationPosition === 'left' || (appSettings$ | async).layout.navigationPosition === 'top'"
+                   [lockedOpen]="'gt-md'"
+                   [ngClassObj]="(appSettings$ | async).colorClasses.navbar"
+                   class="left-navbar">
+        <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)"
+                     (sideBarToggleFolded)="onToggleSidebarFolded($event)" [navId]="navBarName" layout="vertical">
         </fuse-navbar>
-        <!-- / NAVBAR: Top -->
+      </app-sidebar>
+      <!-- / NAVBAR: Left -->
 
-        <div id="wrapper">
+      <div class="content-wrapper">
 
-            <!-- NAVBAR: Left -->
-            <fuse-sidebar [name]="navBarName" [opened]="(appSettings$ | async).layout.navigationOpened" [folded]="(appSettings$ | async).layout.navigationFolded" [lockedOpen]="'gt-md'" class="left-navbar" [ngClass]="(appSettings$ | async).colorClasses.navbar" *ngIf="(appSettings$ | async).layout.navigationPosition === 'left' || (appSettings$ | async).layout.navigationPosition === 'top'">
-                <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)" (sideBarToggleFolded)="onToggleSidebarFolded($event)" [navId]="navBarName" layout="vertical">
-                </fuse-navbar>
-            </fuse-sidebar>
-            <!-- / NAVBAR: Left -->
-
-            <div class="content-wrapper">
-
-                <!-- TOOLBAR: Below -->
-                <ng-container *ngIf="(appSettings$ | async).layout.toolbar === 'below'">
-                    <fuse-toolbar class="below" [ngClass]="(appSettings$ | async).colorClasses.toolbar"></fuse-toolbar>
-                </ng-container>
-                <!-- / TOOLBAR: Below -->
-
-                <fuse-content></fuse-content>
-
-                <!-- FOOTER: Below -->
-                <ng-container *ngIf="(appSettings$ | async).layout.footer === 'below'">
-                    <fuse-footer class="below" [ngClass]="(appSettings$ | async).colorClasses.footer"></fuse-footer>
-                </ng-container>
-                <!-- / FOOTER: Below -->
-
-            </div>
-
-            <!-- NAVBAR: Right -->
-            <fuse-sidebar [opened]="(appSettings$ | async).layout.navigationOpened" [name]="navBarName" [align]="'right'" [folded]="(appSettings$ | async).layout.navigationFolded" [lockedOpen]="'gt-md'" class="right-navbar" [ngClass]="(appSettings$ | async).colorClasses.navbar"
-                *ngIf="(appSettings$ | async).layout.navigationPosition === 'right'">
-                <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)" (sideBarToggleFolded)="onToggleSidebarFolded($event)" [navId]="navBarName" layout="vertical">
-                </fuse-navbar>
-            </fuse-sidebar>
-            <!-- / NAVBAR: Right -->
-
-        </div>
-
-        <!-- FOOTER: Above -->
-        <ng-container *ngIf="(appSettings$ | async).layout.footer === 'above'">
-            <fuse-footer class="above" [ngClass]="(appSettings$ | async).colorClasses.footer"></fuse-footer>
+        <!-- TOOLBAR: Below -->
+        <ng-container *ngIf="(appSettings$ | async).layout.toolbar === 'below'">
+          <fuse-toolbar class="below" [ngClass]="(appSettings$ | async).colorClasses.toolbar"></fuse-toolbar>
         </ng-container>
-        <!-- FOOTER: Above -->
+        <!-- / TOOLBAR: Below -->
+
+        <fuse-content></fuse-content>
+
+        <!-- FOOTER: Below -->
+        <ng-container *ngIf="(appSettings$ | async).layout.footer === 'below'">
+          <fuse-footer class="below" [ngClass]="(appSettings$ | async).colorClasses.footer"></fuse-footer>
+        </ng-container>
+        <!-- / FOOTER: Below -->
+
+      </div>
+
+      <!-- NAVBAR: Right -->
+
+      <app-sidebar [opened]="(appSettings$ | async).layout.navigationOpened" [name]="navBarName" [align]="'right'"
+                   [folded]="(appSettings$ | async).layout.navigationFolded" [lockedOpen]="'gt-md'"
+                   class="right-navbar" [ngClassObj]="(appSettings$ | async).colorClasses.navbar"
+                   *ngIf="(appSettings$ | async).layout.navigationPosition === 'right'">
+        <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)"
+                     (sideBarToggleFolded)="onToggleSidebarFolded($event)" [navId]="navBarName" layout="vertical">
+        </fuse-navbar>
+      </app-sidebar>
+
+      <!-- / NAVBAR: Right -->
 
     </div>
 
-    <!-- QUICK PANEL -->
-    <mat-sidenav *ngIf="(appSettings$ | async).layout.quickPanel" fuseMatSidenavHelper="quick-panel" align="end">
-        <fuse-quick-panel></fuse-quick-panel>
-    </mat-sidenav>
-    <!-- / QUICK PANEL -->
+    <!-- FOOTER: Above -->
+    <ng-container *ngIf="(appSettings$ | async).layout.footer === 'above'">
+      <fuse-footer class="above" [ngClass]="(appSettings$ | async).colorClasses.footer"></fuse-footer>
+    </ng-container>
+    <!-- FOOTER: Above -->
+
+  </div>
+
+  <!-- QUICK PANEL -->
+  <mat-sidenav *ngIf="(appSettings$ | async).layout.quickPanel" fuseMatSidenavHelper="quick-panel" align="end">
+    <fuse-quick-panel></fuse-quick-panel>
+  </mat-sidenav>
+  <!-- / QUICK PANEL -->
 
 </mat-sidenav-container>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ViewEncapsulation } from '@angular/core';
 
-import { fuseAnimations } from '@sense-cm/fuse/src/animations';
-import { MatColors } from '@sense-cm/fuse/src/mat-colors';
+import { fuseAnimations } from '@fuse/animations';
+import { MatColors } from '@fuse/mat-colors';
 
 @Component({
     selector     : 'fuse-material-color-picker',
@@ -106,7 +106,7 @@ export class FuseMaterialColorPickerComponent implements OnChanges
             this.updateSelectedColor();
         }
     }
-
+    
     selectPalette(palette)
     {
         this.selectedPalette = palette;
