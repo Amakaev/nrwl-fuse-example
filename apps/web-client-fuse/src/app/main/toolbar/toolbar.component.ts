@@ -10,6 +10,7 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {AppConfig} from '../../app-config';
 import * as fromAppActions from '../../+state/app.actions';
+import {RouterStateUrl} from "../../app.module";
 
 @Component({
   selector: 'fuse-toolbar',
@@ -26,7 +27,10 @@ export class FuseToolbarComponent {
 
   constructor(private router: Router,
               private sidebarService: FuseSidebarService,
-              private appState: Store<AppState>) {
+              private appState: Store<AppState>,
+              private routerState:Store<RouterStateUrl>
+  ) {
+
     this.appSettings$ = appState.select(fromAppSelectors.selectFuseSettings);
     this.appSettings$.subscribe(settings => {
       this.horizontalNav = settings.layout.navigationPosition === 'top';
@@ -49,9 +53,9 @@ export class FuseToolbarComponent {
 
   toggleSidebarOpened(key) {
     if (this.sidebarService.getSidebar(key).opened) {
-      this.appState.dispatch(new fromAppActions.CloseSidenav());
+      this.appState.dispatch(new fromAppActions.CloseNavigation());
     } else {
-      this.appState.dispatch(new fromAppActions.OpenSidenav());
+      this.appState.dispatch(new fromAppActions.OpenNavigation());
     }
   }
 

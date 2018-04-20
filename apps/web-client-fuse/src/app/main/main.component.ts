@@ -18,7 +18,7 @@ import {AppState} from '../+state/app.reducer';
 import * as fromAppSelectors from '../+state/app.selectors'
 import {Observable} from 'rxjs/Observable';
 import {AppConfig} from '../app-config';
-import {ChangeSettigns, CloseSidenav, OpenSidenav, UnfoldSidenav, FoldSidenav} from '../+state/app.actions';
+import {ChangeSettigns, CloseNavigation, OpenNavigation, UnfoldNavigation, FoldNavigation} from '../+state/app.actions';
 
 @Component({
   selector: 'fuse-main',
@@ -57,18 +57,18 @@ export class FuseMainComponent {
 
   toggleSidebarOpened(key) {
     if (this.sidebarService.getSidebar(key).opened) {
-      this.appState.dispatch(new CloseSidenav())
+      this.appState.dispatch(new CloseNavigation())
     } else {
-      this.appState.dispatch(new OpenSidenav())
+      this.appState.dispatch(new OpenNavigation())
     }
   }
 
   onToggleSidebarFolded(key) {
     const sidebar = this.sidebarService.getSidebar(key);
     if (sidebar.folded) {
-      this.appState.dispatch(new UnfoldSidenav())
+      this.appState.dispatch(new UnfoldNavigation())
     } else {
-      this.appState.dispatch(new FoldSidenav())
+      this.appState.dispatch(new FoldNavigation())
     }
   }
 }

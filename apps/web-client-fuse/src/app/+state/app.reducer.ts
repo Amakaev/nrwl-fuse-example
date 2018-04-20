@@ -1,14 +1,17 @@
-import { Action } from '@ngrx/store';
-import { AppActions, AppActionTypes } from './app.actions';
-import { fuseConfig, AppConfig } from '../app-config';
+import {Action} from '@ngrx/store';
+import {AppActions, AppActionTypes} from './app.actions';
+import {appConfig, AppConfig} from '../app-config';
 import * as _ from 'lodash';
+import {RouterReducerState} from "@ngrx/router-store";
+import {RouterStateUrl} from "../app.module";
+
 /**
  * Interface for the 'App' data used in
  *  - AppState, and
  *  - appReducer
  */
 export interface AppData {
-  settings: AppConfig
+  settings: AppConfig,
 }
 
 /**
@@ -17,35 +20,36 @@ export interface AppData {
  */
 export interface AppState {
   readonly app: AppData;
+  readonly router: RouterReducerState<RouterStateUrl>;
 }
 
 export const initialState: AppData = {
-  settings: fuseConfig
+  settings: appConfig,
 };
 
 export function appReducer(state = initialState, action: AppActions): AppData {
   switch (action.type) {
     case AppActionTypes.ChangeSettings: {
       const newState = _.merge({}, state);
-      newState.settings = { ...newState.settings, ...action.settings }
+      newState.settings = {...newState.settings, ...action.settings}
       return newState;
     }
-    case AppActionTypes.OpenSidenav: {
+    case AppActionTypes.OpenNavigation: {
       let newState = _.merge({}, state);
       newState.settings.layout.navigationOpened = true;
       return newState;
     }
-    case AppActionTypes.CloseSidenav: {
+    case AppActionTypes.CloseNavigation: {
       let newState = _.merge({}, state);
       newState.settings.layout.navigationOpened = false;
       return newState;
     }
-    case AppActionTypes.FoldSidenav: {
+    case AppActionTypes.FoldNavigation: {
       let newState = _.merge({}, state);
       newState.settings.layout.navigationFolded = true;
       return newState;
     }
-    case AppActionTypes.UnfoldSidenav: {
+    case AppActionTypes.UnfoldNavigation: {
       let newState = _.merge({}, state);
       newState.settings.layout.navigationFolded = false;
       return newState;

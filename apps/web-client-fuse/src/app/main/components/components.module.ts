@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {SidebarComponent} from './sidebar.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
 import {FuseSidebarModule} from "@sense-cm/fuse";
 import {CommonModule} from "@angular/common";
 
@@ -16,8 +16,4 @@ import {CommonModule} from "@angular/common";
   providers: [],
 })
 export class ComponentsModule {
-
-
-
-
 }

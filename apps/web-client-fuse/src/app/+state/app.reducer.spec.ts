@@ -1,5 +1,5 @@
 import { appReducer, initialState } from './app.reducer';
-import { ChangeSettigns, AppActionTypes, CloseSidenav, OpenSidenav, FoldSidenav, UnfoldSidenav, ChangeLanguage } from './app.actions';
+import { ChangeSettigns, AppActionTypes, CloseNavigation, OpenNavigation, FoldNavigation, UnfoldNavigation, ChangeLanguage } from './app.actions';
 
 const init = {
   settings: {
@@ -41,31 +41,31 @@ describe('appReducer', () => {
     expect(actual.settings.layout).toBeDefined();
   });
 });
-describe(`When ${AppActionTypes.OpenSidenav}`, () => {
+describe(`When ${AppActionTypes.OpenNavigation}`, () => {
   it(`Sidenav should be opened`, () => {
-    const action: OpenSidenav = new OpenSidenav();
+    const action: OpenNavigation = new OpenNavigation();
     const actual = appReducer(init, action);
     expect(actual.settings.layout.navigationOpened).toEqual(true);
   });
 });
-describe(`When ${AppActionTypes.CloseSidenav}`, () => {
+describe(`When ${AppActionTypes.CloseNavigation}`, () => {
   it(`Sidenav should be closed`, () => {
-    const action: CloseSidenav = new CloseSidenav();
+    const action: CloseNavigation = new CloseNavigation();
     const actual = appReducer(init, action);
     expect(actual.settings.layout.navigationOpened).toEqual(false);
   });
 });
-describe(`When ${AppActionTypes.FoldSidenav}`, () => {
+describe(`When ${AppActionTypes.FoldNavigation}`, () => {
   it(`Sidenav should be folded`, () => {
 
-    const action: FoldSidenav = new FoldSidenav();
+    const action: FoldNavigation = new FoldNavigation();
     const actual = appReducer(init, action);
     expect(actual.settings.layout.navigationFolded).toEqual(true);
   });
 });
-describe(`When ${AppActionTypes.UnfoldSidenav}`, () => {
+describe(`When ${AppActionTypes.UnfoldNavigation}`, () => {
   it(`Sidenav should be unfolded`, () => {
-    const action: UnfoldSidenav = new UnfoldSidenav();
+    const action: UnfoldNavigation = new UnfoldNavigation();
     const actual = appReducer(init, action);
     expect(actual.settings.layout.navigationFolded).toEqual(false);
   });

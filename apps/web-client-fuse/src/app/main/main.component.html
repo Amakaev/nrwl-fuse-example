@@ -23,6 +23,7 @@
                    [folded]="(appSettings$ | async).layout.navigationFolded"
                    *ngIf="(appSettings$ | async).layout.navigationPosition === 'left' || (appSettings$ | async).layout.navigationPosition === 'top'"
                    [lockedOpen]="'gt-md'"
+                   [align]="'left'"
                    [ngClassObj]="(appSettings$ | async).colorClasses.navbar"
                    class="left-navbar">
         <fuse-navbar [navigation]="navigation$ | async" (sideBarToggleOpened)="toggleSidebarOpened($event)"
