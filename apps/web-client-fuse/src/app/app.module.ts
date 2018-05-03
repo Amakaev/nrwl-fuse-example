@@ -3,7 +3,12 @@ import { NxModule } from '@nrwl/nx';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Params, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
+import {
+  Params,
+  RouterModule,
+  RouterStateSnapshot,
+  Routes
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 import { FuseSharedModule, FuseModule } from '@sense-cm/fuse';
@@ -12,12 +17,17 @@ import { AppComponent } from './app.component';
 import { FuseMainModule } from './main/main.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { appReducer, initialState as appInitialState } from './+state/app.reducer';
+import {
+  appReducer,
+  initialState as appInitialState
+} from './+state/app.reducer';
 import { AppEffects } from './+state/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import {
-  routerReducer, RouterReducerState, RouterStateSerializer,
+  routerReducer,
+  RouterReducerState,
+  RouterStateSerializer,
   StoreRouterConnectingModule
 } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
@@ -60,15 +70,13 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     NxModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     TranslateModule.forRoot(),
 
     // Fuse Main and Shared modules
@@ -84,12 +92,14 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
     ),
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router' // name of reducer key
+    })
   ],
-  bootstrap: [
-    AppComponent
-  ],
-  providers: [AppEffects, { provide: RouterStateSerializer, useClass: CustomSerializer }]
+  bootstrap: [AppComponent],
+  providers: [
+    AppEffects,
+    { provide: RouterStateSerializer, useClass: CustomSerializer }
+  ]
 })
-export class AppModule {
-}
+export class AppModule {}
