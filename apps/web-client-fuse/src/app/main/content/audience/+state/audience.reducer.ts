@@ -1,11 +1,11 @@
 import {Action} from '@ngrx/store';
-import {AudienceActions, AudienceActionTypes} from './app.actions';
+import {AudienceActions, AudienceActionTypes} from './audience.actions';
 import * as _ from 'lodash';
 
 export interface AudienceListModel {
   showProgress: boolean,
   sidebar: any,
-  list: any[],
+  items: any[],
   skip: number,
   take: number,
   totalItems: number
@@ -33,7 +33,7 @@ export const initialState: AudienceData = {
   list: {
     showProgress: false,
     filters: {},
-    list: [],
+    items: [],
     sidebar: {opened: true},
     skip: 0,
     take: 20,
@@ -50,7 +50,10 @@ export function appReducer(state = initialState, action: AudienceActions): Audie
     }
 
     case AudienceActionTypes.AudiencesLoaded: {
-      return {...state, ...action.payload};
+      let newState = _.merge({}, state);
+      newState.list.showProgress = false;
+      newState.list.items = action.payload;
+      return newState;
     }
 
     default:

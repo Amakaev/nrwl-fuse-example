@@ -2,4 +2,10 @@
 
   <h2>Audience list</h2>
 
+  <mat-list>
+    <mat-list-item *ngFor="let audience of audiences$ | async">
+      {{audience.title}}
+    </mat-list-item>
+  </mat-list>
+
 </div>

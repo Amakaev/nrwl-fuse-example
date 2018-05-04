@@ -9,7 +9,7 @@ import { AppEffects } from './app.effects';
 import { Observable } from 'rxjs/Observable';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
-describe('AppEffects', () => {
+describe('AudienceEffects', () => {
   let actions$: Observable<any>;
   let effects$: AppEffects;
 

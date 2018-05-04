@@ -8,12 +8,13 @@ export enum AudienceActionTypes {
 export class LoadAudiences implements Action {
   readonly type = AudienceActionTypes.LoadAudiences;
 
-  constructor(filters:{}) {
+  constructor(public filters: {}) {
   }
 }
 
 export class AudiencesLoaded implements Action {
   readonly type = AudienceActionTypes.AudiencesLoaded;
+
   constructor(public payload: any) {
   }
 }
